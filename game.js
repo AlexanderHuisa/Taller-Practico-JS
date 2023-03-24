@@ -1,6 +1,9 @@
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
-
+const btnUp = document.querySelector('#up');
+const btnDown = document.querySelector('#down');
+const btnLeft = document.querySelector('#left');
+const btnRight = document.querySelector('#right');
 
 window.addEventListener('load', setCanvasSize);  //carga la funcion del juego una vez carga todo el html, esto para evitar futuros problemas con canvas
 window.addEventListener('resize', setCanvasSize); // carga la pagina una vez cambia de tamaño el tamaño de la pantalla
@@ -30,12 +33,48 @@ function startGame(){
     const mapRows = map.trim().split('\n');  //trim quita espacios en blanco de un string, split separa 
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
-    console.log(mapRowCols)
-    //console.log(mapRowCols[0][1])
-    for(let i = 0; i < 10;i++){
-        for(let j = 1; j <= 10; j++){
-            
-            game.fillText(emojis[mapRowCols[j-1][i]],elementsSize * i,elementsSize * j);
-        }
-    }
+    mapRowCols.forEach((row, rowIndex) => {
+        row.forEach((col, colIndex) => {
+            const emoji = emojis[col];
+            const posX = elementsSize * (rowIndex);
+            const posY = elementsSize * (colIndex + 1);
+            game.fillText(emoji,posX, posY)
+        })
+    });
+
+
+    // for(let i = 0; i < 10;i++){
+    //     for(let j = 1; j <= 10; j++){
+    //         game.fillText(emojis[mapRowCols[j-1][i]],elementsSize * i,elementsSize * j);
+    //     }
+    // }
+}
+
+window.addEventListener('keydown', moveByKeys)
+btnUp.addEventListener('click', moveUp);
+btnDown.addEventListener('click', moveDown);
+btnLeft.addEventListener('click', moveLeft);
+btnRight.addEventListener('click', moveRight);
+
+function moveByKeys(event){
+    if (event.key == 'ArrowUp') moveUp();
+    else if (event.key == 'ArrowDown') moveDown();
+    else if (event.key == 'ArrowLeft') moveLeft();
+    else if (event.key == 'ArrowRight') moveRight();
+}
+
+function moveUp(){
+    console.log("Me quiero mover hacia arriba");
+}
+
+function moveDown(){
+    console.log("Me quiero mover hacia abajo");
+}
+
+function moveLeft(){
+    console.log("Me quiero mover hacia la izquierda");
+}
+
+function moveRight(){
+    console.log("Me quiero mover hacia derecha");
 }
