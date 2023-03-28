@@ -4,6 +4,8 @@ const btnUp = document.querySelector('#up');
 const btnDown = document.querySelector('#down');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
+const spanLives = document.querySelector('#lives');
+const spanTimes = document.querySelector('#times');
 
 window.addEventListener('load', setCanvasSize);  //carga la funcion del juego una vez carga todo el html, esto para evitar futuros problemas con canvas
 window.addEventListener('resize', setCanvasSize); // carga la pagina una vez cambia de tamaño el tamaño de la pantalla
@@ -21,6 +23,12 @@ let giftPosition = {
 let enemyPositions = [];
 let level = 0;
 let lives = 3;
+let timeStart; 
+let timePlayer;
+let timeInterval;
+
+let timeMinut = 0;
+
 function setCanvasSize(){
 
     if (window.innerHeight > window.innerWidth){
@@ -37,6 +45,7 @@ function setCanvasSize(){
 }
 
 function startGame(){
+    showTime();
     game.font = elementsSize + 'px Verdana';
     //game.textAlign = 'left';
     
@@ -44,12 +53,18 @@ function startGame(){
     if (!map){
         gameWin();
     }
+
+    if (!timeStart){
+        timeStart = Date.now();
+        timeInterval = setInterval(showTime,100);
+    }
     const mapRows = map.trim().split('\n');  //trim quita espacios en blanco de un string, split separa 
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
     game.clearRect(0,0, canvasSize,canvasSize);
     enemyPositions = [];
-
+    showLives();
+    
     mapRowCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
@@ -117,9 +132,11 @@ function levelWin(){
 
 function gameWin(){
     console.log("Ganaste todos los niveles");
+    clearInterval(timeInterval); //finaliza el intervalo del tiempo transcurrido en el juego
 }
 
 function levelFail(){
+    
     if (lives > 0){
         console.log("Chocaste con un enemigo, ¡perdiste!");
         playerPosition.x = undefined;
@@ -130,12 +147,26 @@ function levelFail(){
     }else{
         level = 0;
         lives = 3;
+        timeStart = undefined;
         playerPosition.x = undefined;
         playerPosition.y = undefined;
         console.log("perdiste todas tus vidas,  juego iniciado nuevamente");
         startGame();
     }
     
+}
+
+function showLives(){
+    const heartsArray = Array(lives).fill(emojis['HEART']) // crea un array con la cantidad que tenga la variable
+    spanLives.innerHTML = heartsArray.join(''); //.join quita las comas que aparece cuando imprimes el array
+}
+function showTime(){
+    // let timeSecond =Math.trunc((Date.now() - timeStart) / 1000);
+    // if (timeSecond == 60) {
+    //     timeMinut++; 
+    //     timeStart = Date.now();
+    // }
+    spanTimes.innerHTML = Date.now()-timeStart;//timeMinut+ " : " + timeSecond;
 }
 
 window.addEventListener('keydown', moveByKeys)
@@ -150,7 +181,6 @@ function moveByKeys(event){
     else if (event.key == 'ArrowLeft') moveLeft();
     else if (event.key == 'ArrowRight') moveRight();
 }
-
 function moveUp(){
     if ((playerPosition.y - elementsSize) < elementsSize){
         console.log("OUT");
@@ -161,7 +191,6 @@ function moveUp(){
     }
     
 }
-
 function moveDown(){
     if ((playerPosition.y + elementsSize) > canvasSize){
         console.log("OUT");
@@ -170,9 +199,7 @@ function moveDown(){
         playerPosition.y += elementsSize;
         startGame();
     }
-}
-    
-
+}  
 function moveLeft(){
     if ((playerPosition.x - elementsSize) < elementsSize - elementsSize){
         console.log("OUT");
@@ -183,7 +210,6 @@ function moveLeft(){
     }
     
 }
-
 function moveRight(){
     if ((playerPosition.x + elementsSize) > (canvasSize - elementsSize)){
         console.log("OUT");
