@@ -6,7 +6,8 @@ const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const spanLives = document.querySelector('#lives');
 const spanTimes = document.querySelector('#times');
-const spanTiempoRecord = document.querySelector('#tRecord')
+const spanTiempoRecord = document.querySelector('#tRecord');
+const btnReloadGame = document.querySelector('#rGame')
 
 window.addEventListener('load', setCanvasSize);  //carga la funcion del juego una vez carga todo el html, esto para evitar futuros problemas con canvas
 window.addEventListener('resize', setCanvasSize); // carga la pagina una vez cambia de tamaño el tamaño de la pantalla
@@ -204,6 +205,7 @@ btnUp.addEventListener('click', moveUp);
 btnDown.addEventListener('click', moveDown);
 btnLeft.addEventListener('click', moveLeft);
 btnRight.addEventListener('click', moveRight);
+btnReloadGame.addEventListener('click', reloadAllGame);
 
 function moveByKeys(event){
     if (event.key == 'ArrowUp') moveUp();
@@ -252,4 +254,7 @@ function moveRight(){
         startGame();    
     }
     
+}
+function reloadAllGame(){
+    window.location.reload();
 }

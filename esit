@@ -1,0 +1,53 @@
+[33mcommit 73c6e903ebdbd8aa37609d7eafbc2c43ddbc6806[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Wed Mar 29 13:58:00 2023 -0500
+
+    debug
+
+[33mcommit 4a01078479a66b85bc19b6e12fabf0fba43f6ff5[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Tue Mar 28 12:32:53 2023 -0500
+
+    Se añadió en pantalla las vidas y el tiempo en el juego
+
+[33mcommit 4728dde7a6da7a307d54a956dd842337366521a1[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Mon Mar 27 22:23:22 2023 -0500
+
+    deteccion de colisiones y pase de niveles
+
+[33mcommit 25eb8ef7e2e98a4ce373b1945ba2496a0f5b181c[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Mon Mar 27 11:11:47 2023 -0500
+
+    Borrado de la  posicion anterior de jugador en un movimiento y limitar tamaño de campo
+
+[33mcommit f8859192229feae8b6041e6bf74afe30c065172e[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Fri Mar 24 11:54:12 2023 -0500
+
+    Reconocimiento de la presion del los botones, Ready
+
+[33mcommit 8bbbe96d1a8a79233406b56dee3f044ed438b9d2[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Thu Mar 23 22:58:39 2023 -0500
+
+    mapa completo
+
+[33mcommit b64de7a68fab3a15363d225c1cd89fdc3ca847bb[m
+Author: AlexanderHuisa <alexanderhuisa@gmail.com>
+Date:   Thu Mar 23 15:15:51 2023 -0500
+
+    commit de prueba
+
+[33mcommit 90b4b78d2aefacfbb6b168ed8b4ecc565d28069a[m
+Author: AlexanderHCH <>
+Date:   Sun Mar 5 18:03:12 2023 -0500
+
+    diseño estilizado
+
+[33mcommit c07765530bc7bb1cf400a08b4c239554b4596f14[m
+Author: AlexanderHuisa <68964232+AlexanderHuisa@users.noreply.github.com>
+Date:   Sun Mar 5 16:16:21 2023 -0500
+
+    Initial commit
