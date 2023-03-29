@@ -6,6 +6,7 @@ const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const spanLives = document.querySelector('#lives');
 const spanTimes = document.querySelector('#times');
+const spanTiempoRecord = document.querySelector('#tRecord')
 
 window.addEventListener('load', setCanvasSize);  //carga la funcion del juego una vez carga todo el html, esto para evitar futuros problemas con canvas
 window.addEventListener('resize', setCanvasSize); // carga la pagina una vez cambia de tamaño el tamaño de la pantalla
@@ -24,30 +25,35 @@ let enemyPositions = [];
 let level = 0;
 let lives = 3;
 let timeStart; 
-let timePlayer;
+let timePlayer = 0;
 let timeInterval;
+let record;
 
 let timeMinut = 0;
 
 function setCanvasSize(){
 
     if (window.innerHeight > window.innerWidth){
-        canvasSize = window.innerWidth * 0.8;
+        canvasSize = window.innerWidth * 0.7;
     }else{
-        canvasSize = window.innerHeight * 0.8;
+        canvasSize = window.innerHeight * 0.7;
     }
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
+    canvasSize = Number(canvasSize.toFixed(3));
+
     elementsSize = (canvasSize / 10) - 1;
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
     startGame();
 }
 
 function startGame(){
     showTime();
     game.font = elementsSize + 'px Verdana';
-    //game.textAlign = 'left';
+    //game.textAlign = 'end';
     
     const map = maps[level];
     if (!map){
@@ -58,6 +64,7 @@ function startGame(){
         timeStart = Date.now();
         timeInterval = setInterval(showTime,100);
     }
+    showRecord();
     const mapRows = map.trim().split('\n');  //trim quita espacios en blanco de un string, split separa 
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     
@@ -108,6 +115,7 @@ function movePlayer(){
     const giftColision = giftColisionX && giftColisionY;
     if (giftColision) {
         levelWin();
+        console.log('pasaste de nivel');
         return;
     }
     const enemyCollision = enemyPositions.find(enemy => {
@@ -133,6 +141,19 @@ function levelWin(){
 function gameWin(){
     console.log("Ganaste todos los niveles");
     clearInterval(timeInterval); //finaliza el intervalo del tiempo transcurrido en el juego
+    const recordTime = localStorage.getItem('record_time');
+    if (recordTime){
+        if (recordTime > timePlayer){
+            localStorage.setItem('record_time',timePlayer);
+            pResult.innerHTML = 'Superaste el record';
+        }else{
+            pResult.innerHTML = 'lo siento no Superaste el record';
+        }
+    }else{
+        localStorage.setItem('record_time', timePlayer);
+        pResult.innerHTML = 'Primera vez? Muy bien, ahora trata de superar el juego';
+    }
+    console.log({recordTime})
 }
 
 function levelFail(){
@@ -166,7 +187,16 @@ function showTime(){
     //     timeMinut++; 
     //     timeStart = Date.now();
     // }
-    spanTimes.innerHTML = Date.now()-timeStart;//timeMinut+ " : " + timeSecond;
+    timePlayer = Date.now()- timeStart;//timeMinut+ " : " + timeSecond;
+    spanTimes.innerHTML = timePlayer;//timeMinut+ " : " + timeSecond;
+}
+
+function showRecord(){
+    if(!localStorage.getItem('record_time')){
+        spanTiempoRecord.innerHTML = 'Aun no hay un record';
+    }else{
+        spanTiempoRecord.innerHTML = localStorage.getItem('record_time');
+    }
 }
 
 window.addEventListener('keydown', moveByKeys)
@@ -182,8 +212,9 @@ function moveByKeys(event){
     else if (event.key == 'ArrowRight') moveRight();
 }
 function moveUp(){
-    if ((playerPosition.y - elementsSize) < elementsSize){
+    if ((playerPosition.y - elementsSize) < elementsSize - 1){
         console.log("OUT");
+        console.log("X",playerPosition.x,"to",playerPosition.x.toFixed(3), "Y",playerPosition.y,"tamaño de elemento", elementsSize)
     }else{
         console.log("Me quiero mover hacia arriba");
         playerPosition.y -= elementsSize;
@@ -201,10 +232,12 @@ function moveDown(){
     }
 }  
 function moveLeft(){
-    if ((playerPosition.x - elementsSize) < elementsSize - elementsSize){
+    if ((playerPosition.x) < elementsSize - 1){
         console.log("OUT");
+        console.log("X",playerPosition.x,"to",playerPosition.x.toFixed(1), "Y",playerPosition.y,"tamaño de elemento", elementsSize)
     }else{
         console.log("Me quiero mover hacia la izquierda");
+        
         playerPosition.x -= elementsSize;
         startGame();    
     }

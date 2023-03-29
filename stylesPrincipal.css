@@ -1,6 +1,6 @@
 body {
    
-    background: linear-gradient(to bottom right,#132d45,#15674a);  
+    background: linear-gradient(to bottom right,indigo,rgb(168, 10, 207));  
     /*background-color: indigo;*/
     color: #fff;  
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -19,9 +19,9 @@ body {
   }
   
   canvas {
-    border: 4px solid #132d45;
+    border: 4px solid #ff6600;
     border-radius: 8px;
-    background-color: #01c380;
+    background-color: #feff9d;
   }
   
   .btns {
@@ -34,9 +34,9 @@ body {
   }
   
   button {
-    background-color: #01c380;
+    background-color: #fdef05;
     border-radius: 50px;
-    border-color: #132d45;
+    border-color: #ff6600;
     font-family: inherit;
     margin: 0;
     padding: 5px 5px;
